@@ -1,0 +1,226 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;\f1\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red92\green38\blue153;\red170\green13\blue145;\red46\green13\blue110;
+}
+\margl720\margr720\margb720\margt720\vieww9000\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs36 \cf0 \expnd0\expndtw0\kerning0
+\
+\
+1. \
+Delete VC. Drag table VC. Editor-> embed in Navigator. \
+Cell hight = 70. Cell's reuse identifier "Cell". \
+Chose the first VC. In attribute inspector put check to "Is initial VC". \
+Deleting our old VC.swift file. \
+Creating new MovieTableVC\
+Specifying it in storyboard. \
+\
+2. \
+For model file, we create Movie. \
+It will be a struct not a class. Structs are passed by value, unlike classes that are passed by reference. \
+Adding attributes title, imagePath, description. \
+init with all those attributes. \
+\
+3. \
+We define a func that will be only available within the Movie struct ("private") . We wont need to create an instance of the struct itself ("static"). \
+That func will get data from API - getMovieData. Arg values is a completion block. \
+\
+4. \
+Create a URLSession. \
+Create a URLRequest, using movie url and our personal API key. \
+Declare a constant "APIKEY", in case we will have to change it. \
+\
+5. \
+Using our URLSession instance we run a dataTask(with: URL ...) and a completion handler. \
+Inside, we check if we received "data". If yes, we want to convert that binary data into a json object. \
+We might get an error, => we use "try?" - it returns an optional that wraps successful values and cancels errors by returning nil. \
+We check if our response is available. \
+Check if our response.statusCode matches an http status code 200...299 (using pattern "match operator" ~=). \
+If no errors, we assemble a completion block that we declared in parent getMovieData with args that we have. \
+If some errors, we still assemble a completion block, since we can get an error description. \
+Activate the dataTask, type ".resume( )" at the end of "dataTask" func. \
+\
+6. \
+We create another func nowPlaying that can be accessed anywhere ("public") and we wont need an instance of our Movie struct ("static").\
+In completion bloc, one of the args is an array of Movie objects. \
+Inside, we call the dataTask func. Run->We can see the json data. \
+\
+7. \
+In nowPlaying, check if success. If yes, create an empty array of Movie objects.  \
+Get a hold of movieResults that are inside of the "object" arg of getMovieData, that is a JSON array. That is an array of Dictionaries. \
+\
+8. \
+If we were able to create movieResult as an array, then we run a "for...in" loop.  With each iteration, every new element of the array is assigned to "movie". Then, it is accessed and value of key "original_key" is taken out and given to "title". \
+Since there aren't always "posterImages" - "guard let posterImage = ..."  else - \{continue\}\
+Now we have all args to init our movie object. \
+Add object to the array. \
+Outside of for-in loop, we add our completion block with movieArray that was created. \
+If our movieResult failed to be created, "else" with completion block with "false" for success. \
+\
+9. \
+Change our cell type to "Subtitle". \
+In MovieTableVC we create a new func "loadData" to where we transfer code that was in viewDidLoad (Movie.nowPlaying\{ (...) in ...\}  ). \
+loadData in viewDidLoad. \
+Create a global var - array of Movies "nowPlaying". \
+Inside loadData, inside Movie.nowPlaying , we check if success - then assign array movieList that came with arg to our nowPlaying. \
+Get a hold of the main thread (DispatchQueue.main.async \{  \}) and run reloadData on our tableView so the table will be updated on the main thread. \
+\
+10.\
+in cellForRowAt indexPath: we start configuring our cell by getting current movie obj with indexPath.row index out of nowPlaying array. \
+\
+11. \
+We want to save our movie images in iPhones documents directory. \
+In model's Movie we create a func getDocumentsDirectory that returns an optional type of String. \
+Getting a path with NSSearchPathForDirectoriesInDomains(...)\
+paths.first will give the string do docs. Have to use guard, in case nil. \
+\
+12. \
+Check if the image is already exist - func checkForImageData(...) that takes movie as args and returns a String.\
+First, we need our documents directory (that comes as a path). \
+Create movie image path in documents simply by adding movies titles + "/\\(movie.title)"(Why we create this path in "checking" method?)\
+Create some func for escapedImagePath. I think its to remove space that could've come with movie title. \
+If our FileManager do find a file at specified escapedImagePath -> return that path. \
+Otherwise, return nil. \
+\
+13. \
+a func that will return an actual image. func getImage(...). In arg, we use AnyObject for cell because it can be both UITableViewCell and UICollectionViewCell. The func is also public so we can call for it from MovieTableVC. \
+Check if we have the imagePath with checkForImageData( ). Yes - check if we have the imageData. No - download the image and save to the disk. \
+If we do have imageData - we check if we have a UITableViewCell or a UICollectionViewCell. \
+At the top, correct the import - UIKit instead of Foundation. \
+If yes, we create the cell. Assign its imageView image that we received as imageData. \
+If no, then our cell is UICollectionVC, we would also create a cell and assign it values. \
+\
+14. \
+now downloading the image. \
+We use specific image base url that is provided by API. We can also specify the quality of images. \
+We construct the image path first by taking the base + movie.imagePath. \
+Create an imageURL with that imagePath. \
+This process will block the main thread when performed synchronously so we will make it async.\
+Get a hold of the gold dispatch queue  with a default quality of service 
+\f1\fs28 \kerning1\expnd0\expndtw0 \CocoaLigature0  \cf2 DispatchQueue\cf0 .global(qos: \cf2 DispatchQoS\cf0 .\cf3 default\cf0 ).async 
+\f0\fs36 \expnd0\expndtw0\kerning0
+\CocoaLigature1 . \
+A do-catch block. \
+We try to get data. \
+Create data from the imgURL that we constructed before. \
+Create a place where to store that data. (We've done that in reverse). Get the docs directory. We construct the path to images in our directory, but with movie's title instead of movies imagePath. -> escaped image path. \
+Write file into directory with 
+\f1\fs28 \kerning1\expnd0\expndtw0 \CocoaLigature0 FileManager.\cf3 default\cf0 .createFile(...)\
+
+\f0\fs36 \expnd0\expndtw0\kerning0
+\CocoaLigature1 After we saved images, we need to add them to our cell. That should take on the main thread. \
+Get a hold of the main thread 
+\f1\fs28 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 DispatchQueue\cf0 .\cf2 main\cf0 .\cf4 async\cf0 (execute: 
+\f0\fs36 \expnd0\expndtw0\kerning0
+\CocoaLigature1 with a completion block. \
+Copy the code of assignment image to the cell that we wrote if the file is already exist. 
+\f1\fs28 \kerning1\expnd0\expndtw0 \CocoaLigature0  
+\f0\fs36 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+Now we can call for Movie.getImage( ) in cellForRowAt in MovieTableVC. \
+\
+15. \
+Adding a collection VC. Embedding it in Nav Controller. Drag the start arrow to our collectionVC. \
+Changing CollectionVC cell's size to 150x150. Give the cell identifier name. \
+Adding image view to the collection view cell. Setting the autoresizing. \
+Label. \
+Create a UICollectionViewCell and a UICollectionViewController. Connect in storyboard. \
+In the cell class, make IBOutlets. \
+\
+16. \
+Copy array of dict from UITableViewController, copy the func loadData. Call for it in viewDidLoad. \
+Correcting delegate methods numberOfSections, numberOfItems, cellForItemAt. Setting movie title in the cell from nowPlaying array. \
+\
+17. \
+In Movie.swift, in getImage we finish code for the UICollectionViewCell. \
+We create a collection cell and set its image to data we got from API. Repeat that in DispatchQueue.main.async (for actually loading the image from documents.)\
+Call for getImage from MovieCollectionVC.\
+\
+18. \
+Create a new VC in storyboard. Set its dimensions to "Freeform" 375x200. \
+Throw label, textView and button. Set its contraints by click+cntrl drag to different sides of the VC.  \
+\
+19. \
+Create a new custom UIPresentationController class for our presentation VC. Make it conform to UIAdaptivePresentationControllerDelegate. \
+Create some dimmingView. Override "shouldPresentInFullScreen". \
+Init(presentedViewController: ... presentingViewController: ....), \
+Inside, call for super init, then set backgroundColor property of dimmingView to white:0 (black) and alpha 0.8 so its gray. \
+dimmingView alpha is 0 so at first it is invisible. \
+\
+we override some animation func "presentationTransitionWillBigin"\
+set the current view's frame to dimmingView frame. \
+check if we have a coordinator, that will help us to animate our dimmingView alongside the actual transition. \
+"presentedViewController" is a property of UIPresentationController. Run the "animate( )" and change the alpha to 1 (to be white). \
+\
+20. \
+Create another delegate func "dismisselTransitionWillBegin(  )". \
+We do a reverse thing - get the coordinator, animate it to be alongside with transition and make it black. \
+Override containterViewWillLayoutSubviews. Setting the frames again. \
+\
+21. \
+Create a special class that will handle transitioning. \
+Create MovieTransitioner.swift. it is of type NSObject and conforms to UIViewControllerAnimatedTransitioning protocol. \
+Set a property var, implement delegate protocols transitionDuration and animateTransition. \
+\
+22.\
+Inside animateTransition, get a hold of "animation from VC" and of "animation to VC". Grab its views. Get a hold of containerView where transition takes place. Add toView as a subview to it.   \
+Getting a hold of animatingVC. Then of the its view. \
+Work with view's frames. Need to create an initial and a final frames for our animation. Ternary ( ? : ) operator because it depends wether we showing the view or dismissing it.    \
+Then run the animate func with lots of args. \
+\
+23. \
+In MovieTransitioner, create a new delegate that will have funcs for MoviePresentationController. \
+func's presentationController(forPresented:  ), animationController(forPresented:  ), animationController(forDismissed: )\
+\
+__________\
+
+\b \kerning1\expnd0\expndtw0 Conclusion
+\b0 \expnd0\expndtw0\kerning0
+: for our simple, small VC that pops out when we press on a movie, we need to create a UIPresentationController (similar to UIViewController), an AnimationTransitioning class and a delegate (it implements funcs for conducting the animation).\
+UIPresentationContorller has funcs "presentationTransitionWillBegin" just like "viewWillAppear". \
+The AnimationTransitioning class has funcs from UIViewControllerAnimatedTransitioning. \
+__________\
+\
+\
+24. \
+Giving our overlay VC a storyboard ID "Overlay". \
+Creating an OverlayVC. IBOutlets for label and textView. \
+"var movieItem" for movie item that we will be showing. It is a computed property. Inside - computation "configureView( )" func. \
+In configureView ( ) set titleLabel and descriptionTextVIew to movie's properties. \
+To set the proper size of our VC - override func viewDidLayoutSubviews ( ). Inside, set the bounds to main frame width - 20, and height = 200. Set VC corner radius = 5. \
+IBAction closePressed, we dismiss the presentingViewController. \
+\
+25. \
+Back in MovieCollectionVC, we create new property movieTransitionDelegate. \
+New func showOverlayFor (indexPath: ). Grab the main storyboard. Then instantiate our "Overlay" view controller. \
+As UICollectionVC, our MovieCollectionVC has transitioningDelegate. We set it to movieTransitionDelegate. \
+OverlayVC also has transitioningDelegate, also set it to movieTransitionDelegate var that we declared earlier. \
+Presentation style is .custom since we created it ourselves. \
+Get the movie out of indexPath. Present it. \
+Create delegate func showItemAt: and inside, call for showOverlayFor( ). \
+Done. \
+\
+I learned: custom animations, custom presentation controllers, \
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+}
