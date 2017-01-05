@@ -17,6 +17,7 @@
 		87C106961E1B71C400ADD587 /* MoviePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C106951E1B71C400ADD587 /* MoviePresentationController.swift */; };
 		87C106981E1CC7DD00ADD587 /* MovieTransitioner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C106971E1CC7DD00ADD587 /* MovieTransitioner.swift */; };
 		87C1069A1E1D7E3100ADD587 /* OverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C106991E1D7E3100ADD587 /* OverlayViewController.swift */; };
+		87CB4D611E1E152F00933B14 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CB4D601E1E152F00933B14 /* MovieDetailViewController.swift */; };
 		87FA3AAB1E17597C00893AA6 /* MovieCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA3AAA1E17597C00893AA6 /* MovieCollectionViewController.swift */; };
 		87FA3AAD1E17637600893AA6 /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA3AAC1E17637600893AA6 /* MovieCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -34,6 +35,7 @@
 		87C106951E1B71C400ADD587 /* MoviePresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviePresentationController.swift; sourceTree = "<group>"; };
 		87C106971E1CC7DD00ADD587 /* MovieTransitioner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieTransitioner.swift; sourceTree = "<group>"; };
 		87C106991E1D7E3100ADD587 /* OverlayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayViewController.swift; sourceTree = "<group>"; };
+		87CB4D601E1E152F00933B14 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 		87FA3AAA1E17597C00893AA6 /* MovieCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewController.swift; sourceTree = "<group>"; };
 		87FA3AAC1E17637600893AA6 /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -87,6 +89,7 @@
 				8715CA4C1E138EF300D9C47E /* MovieTableViewController.swift */,
 				87FA3AAA1E17597C00893AA6 /* MovieCollectionViewController.swift */,
 				87C106991E1D7E3100ADD587 /* OverlayViewController.swift */,
+				87CB4D601E1E152F00933B14 /* MovieDetailViewController.swift */,
 				87C106A11E1D7F5900ADD587 /* Overview Presentation */,
 			);
 			name = Controller;
@@ -198,6 +201,7 @@
 				8715CA391E138C2100D9C47E /* AppDelegate.swift in Sources */,
 				87C106961E1B71C400ADD587 /* MoviePresentationController.swift in Sources */,
 				8715CA4F1E13902B00D9C47E /* Movie.swift in Sources */,
+				87CB4D611E1E152F00933B14 /* MovieDetailViewController.swift in Sources */,
 				87C1069A1E1D7E3100ADD587 /* OverlayViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

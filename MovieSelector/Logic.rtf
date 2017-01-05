@@ -204,10 +204,48 @@ Done. \
 I learned: custom animations, custom presentation controllers, \
 \
 \
+26. \
+Implementing the force touch.\
+Added a new VC. Ctntrl drag to it from collectionCell to create a segue.\
+Put UX elements, set constraints.  \
+Create a VC class, add IBOutlets, add Movie! type var, add func configureView( ), call it in viewWillAppear( )\
+In configureView, we set the IBOutlets, except for imageView - for it, we need to create a func in Movie.swift.  \
+We do have such funcs for getting images for specific collection cell or table row. Now we need just if we have the movie. \
+func getImage( ). Get path for given movie. Get data for given path, return image from data. \
+We can call for that func from MovieDetailVC. \
 \
+27. \
+Make changes to the OverlayVC. \
+Comment our "cancel" IBOutlet, viewDidLayoutSubviews( ). Create viewWillAppear, call configureView from it. \
+Changing the movieItem from computed, optional to regular.\
+  \
+The OverlayVC - is a pick VC, MovieDetailVC - is a pop VC. \
 \
+28. \
+Call segue "showDetail"\
+In MovieCollectionVC comment out var movieTransitionDelegate, func didSelectItemAt, func showOverlayFor. \
+Since we work with segue - prepare(for segue:  ). First, get the indexPath. Get the movie obj. Check if segue is right. \
+Get a hold of segue destination - detailVC. Set its movieObj to our movieObj. \
 \
+29. \
+Starting implement 3D touch. \
+In MovieCollectionVC, in viewDIdLoad - check if 3D touch available:\
+if traitCollection.forceTouchCapability == .available \{  \}\
+Make MovieCollectionVC conform to UIViewControllerPreviewingDelegate. Need to implement 2 funcs: \
+PEEK - previewingContext( previewingContext: viewControllerForLocation :) \
+Getting the indexPath. Creating a cell in a guard. \
+Setting previewingContext's sourceRect to our cell's frame. \
+Now create a storyboard to prepare a VC that we will return with parent func. \
+Specify the content size of overlayVC. \
 \
+30. \
+Since we can press lightly and initiate the overlayVC , then either release or press harder - we need to save the movie item to pass to the DetailVC. => new property for MovieCollectionVC. Assign to it current movie in previewingContext func. \
+Set overlayVC's movie item to the same movie. \
+\
+POP - previewingContext( previewingContext: viewControllerToCommit: )\
+Create a storyboard. Create a MovieDetailVC. (give a storyboardID to movieDetailVC in storyboard)\
+Check if selectedMovieByPeek is available (we assigned it in previous PEEK func previewingContext ( viewControllerForLocation) )\
+If yes, assign it to movieDetailVC's movie object, and show movieDetailVC view. \
 \
 \
 \

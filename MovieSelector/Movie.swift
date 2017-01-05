@@ -84,6 +84,15 @@ public struct Movie {
         return nil
     }
     
+    public static func getImage(forMovie movie:Movie)-> UIImage? {
+        if let imagePath = checkForImageData(withMovieObject: movie) {
+            if let imageData = FileManager.default.contents(atPath: imagePath) {
+                return UIImage(data: imageData)
+            }
+        }
+        return nil 
+    }
+    
     public static func getImage(forCell cell:AnyObject, withMovieObject movie:Movie) {
         if let imagePath = checkForImageData(withMovieObject: movie) {
             //File already exists.

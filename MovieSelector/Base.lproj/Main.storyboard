@@ -71,7 +71,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="JoL-y1-11c" customClass="MovieCollectionViewCell" customModule="MovieSelector" customModuleProvider="target">
-                                <rect key="frame" x="3" y="3" width="150" height="150"/>
+                                <rect key="frame" x="2.5" y="2.5" width="150" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
@@ -94,6 +94,7 @@
                                 <connections>
                                     <outlet property="movieImageView" destination="BxN-Yv-wVA" id="Cbb-Zf-q0Z"/>
                                     <outlet property="movieTitleLable" destination="cTj-6L-iiK" id="a41-R3-vci"/>
+                                    <segue destination="edj-u2-fxc" kind="show" identifier="showDetail" id="Xw1-dd-Jn4"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -107,6 +108,61 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="csS-sF-8qr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="621.60000000000002" y="779.46026986506752"/>
+        </scene>
+        <!--Movie Detail View Controller-->
+        <scene sceneID="ek5-Uu-gfq">
+            <objects>
+                <viewController storyboardIdentifier="MovieDetail" id="edj-u2-fxc" customClass="MovieDetailViewController" customModule="MovieSelector" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="n6j-ll-gaV"/>
+                        <viewControllerLayoutGuide type="bottom" id="TQb-wn-ebs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="sdr-JE-TRD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7Wz-Vd-dZ7">
+                                <rect key="frame" x="0.0" y="64" width="375" height="184"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="184" id="Got-5e-ojS"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="id9-W9-lmM">
+                                <rect key="frame" x="1" y="208" width="375" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.6616918103448276" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Zgj-c6-038"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vSb-v9-n1U">
+                                <rect key="frame" x="16" y="269" width="343" height="378"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="7Wz-Vd-dZ7" firstAttribute="leading" secondItem="sdr-JE-TRD" secondAttribute="leadingMargin" constant="-16" id="UCV-4T-p6H"/>
+                            <constraint firstItem="vSb-v9-n1U" firstAttribute="top" secondItem="id9-W9-lmM" secondAttribute="bottom" constant="21" id="YGC-G3-4Si"/>
+                            <constraint firstItem="7Wz-Vd-dZ7" firstAttribute="top" secondItem="n6j-ll-gaV" secondAttribute="bottom" id="ePZ-ys-KfQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="7Wz-Vd-dZ7" secondAttribute="trailing" constant="-16" id="r4h-Vh-bSy"/>
+                            <constraint firstItem="id9-W9-lmM" firstAttribute="bottom" secondItem="7Wz-Vd-dZ7" secondAttribute="bottom" id="y7m-ex-Z0t"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="movieDescription" destination="vSb-v9-n1U" id="gj8-OV-W0V"/>
+                        <outlet property="movieImageView" destination="7Wz-Vd-dZ7" id="DJh-Ou-TfW"/>
+                        <outlet property="movieTitle" destination="id9-W9-lmM" id="Csc-Dr-Y0K"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="u3d-zd-Vav" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1376.8" y="778.56071964017997"/>
         </scene>
         <!--Overlay View Controller-->
         <scene sceneID="d2h-Z5-6JA">
@@ -126,21 +182,12 @@
                                 <color key="textColor" red="0.97426595029999996" green="1" blue="0.96124777049999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcU-pv-aGs">
-                                <rect key="frame" x="158" y="135" width="59" height="30"/>
-                                <state key="normal" title="Close">
-                                    <color key="titleColor" red="0.97426595029999996" green="1" blue="0.96124777049999999" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="closePressed:" destination="Azt-OK-2DJ" eventType="touchUpInside" id="orU-j9-1u2"/>
-                                </connections>
-                            </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jyO-OL-8Ah">
                                 <rect key="frame" x="20" y="61" width="324" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="X1R-Jn-8nP"/>
                                 </constraints>
-                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -148,9 +195,7 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="wcU-pv-aGs" firstAttribute="centerX" secondItem="7z4-On-97z" secondAttribute="centerX" id="33P-GL-vZW"/>
                             <constraint firstAttribute="trailingMargin" secondItem="jyO-OL-8Ah" secondAttribute="trailing" constant="15" id="7ab-1d-Ze4"/>
-                            <constraint firstItem="Al1-iW-jVC" firstAttribute="top" secondItem="wcU-pv-aGs" secondAttribute="bottom" constant="35" id="8BU-QE-ftU"/>
                             <constraint firstItem="9El-S8-01B" firstAttribute="top" secondItem="vHf-wN-vGp" secondAttribute="bottom" constant="8" id="KjZ-th-eAD"/>
                             <constraint firstItem="jyO-OL-8Ah" firstAttribute="leading" secondItem="7z4-On-97z" secondAttribute="leadingMargin" constant="4" id="Sen-CZ-tJc"/>
                             <constraint firstItem="9El-S8-01B" firstAttribute="leading" secondItem="7z4-On-97z" secondAttribute="leadingMargin" constant="9" id="Yud-sz-xRE"/>
@@ -166,7 +211,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8nr-sN-lYV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1349.5999999999999" y="777.21139430284859"/>
+            <point key="canvasLocation" x="1338" y="297"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GeQ-xP-hzr">
