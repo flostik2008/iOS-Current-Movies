@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MovieSelectorBridge
 
 private let reuseIdentifier = "Cell"
 

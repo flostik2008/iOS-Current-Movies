@@ -247,11 +247,50 @@ Create a storyboard. Create a MovieDetailVC. (give a storyboardID to movieDetail
 Check if selectedMovieByPeek is available (we assigned it in previous PEEK func previewingContext ( viewControllerForLocation) )\
 If yes, assign it to movieDetailVC's movie object, and show movieDetailVC view. \
 \
+31. \
+Adding "Today Extension" + Widget when you press harder on icon. \
+First, File-> New -> Target. Search "today Extension". Activate scheme. \
+We can't access func's of the Movie struct inside MovieSelectorExtension. \
+To be able to do that  File -> New -> Target -> Cocoa Touch Framework. That Framework can be shared between different targets. \
+"MovieSelectorBridge". \
+Choose modal file Movie. Change "target membership" to MovieSelectorBridge. -> get lots of errors. Need to import MovieSelectorBridge to almost all files. \
+Also, MovieCollectionViewCell - enable target membership to MovieSelectorBridge. (disable for the project name)\
+MovieDetailsVC - import MovieSelectorBridge \
+OverlayVC - import MovieSelectorBridge\
+MovieCollectionVC - import MovieSelectorBridge\
+MovieCollectionViewCell - define as "public", also its IBOutlets. \
+MovieTableVC - import MovieSelectorBridge. \
+Done. Movie funcs now available in the TodayViewController. \
 \
+31. \
+Doing the UI. MainInterface.storyboard\
+Changing the height to 300. Delete "hello world" label. \
+Add UITableView. Set autoconstraints. \
+Adding a prototype cell. Give identifier "Cell"\
+Creating IBOutlet for UITableView in TodayViewController. Set separator, adopt delegates, implement funcs.\
+Our widget has button "show less / more" in the top right corner. To change what is shown when pressed => \
+add " func widgetActiveDisplayMovdeDidChange". \
+Inside check activeDisplayMode. Set prefferedContentSize to custom CGRect. Create a bool flag "compact" . Depending on compact, return 2 or 4 rows. \
+Add 
+\f1\fs28 \kerning1\expnd0\expndtw0 \CocoaLigature0         \cf3 self\cf0 .extensionContext?.widgetLargestAvailableDisplayMode = .expanded\
+
+\f0\fs36 \expnd0\expndtw0\kerning0
+\CocoaLigature1 to viewDidLoad. Now show more / less appears. \
 \
+32. \
+Populate our widget. \
+Create a var nowPlaying that holds array of movies. \
+New func loadData( ), inside, call Movie.nowPlaying func. Assign the returned array of movies to our array. Asynchronously, reload table data. \
+Call for loadData( ), in viewDidLoad( ). \
+Updating the cell cellForRowAt IndexPath.  If we have objects in movie array, create a movie object with indexPath.row, set labels text color and font. Set title to movie title. Get image with func getImage(for cell: withMovieObject: ). \
 \
+Last, in widgetPerformUpdate( ), call loadData( ), then completionHandler(.newData)\
 \
+33. \
+Go to main project , select bridge target. Under Deployment Info, put check mark to "Allow app extension API only" \
+Done. \
 \
+ \
 \
 \
 \

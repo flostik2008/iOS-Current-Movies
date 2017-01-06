@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MovieSelectorBridge
 
 class MovieDetailViewController: UIViewController {
 

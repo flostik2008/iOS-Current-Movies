@@ -8,9 +8,9 @@
 
 import UIKit
 
-class MovieCollectionViewCell: UICollectionViewCell {
+public class MovieCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var movieImageView: UIImageView!
-    @IBOutlet weak var movieTitleLable: UILabel!
+    @IBOutlet public weak var movieImageView: UIImageView!
+    @IBOutlet public weak var movieTitleLable: UILabel!
     
 }
